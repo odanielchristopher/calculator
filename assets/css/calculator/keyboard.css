@@ -1,0 +1,41 @@
+.keyboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  max-width: calc((72px + 16px) * 4);
+  margin-block: 32px;
+}
+
+.keyboard-btn {
+  align-items: center;
+  border: none;
+  border-radius: 24px;
+  color: var(--textColor);
+  cursor: pointer;
+  display: flex;
+  font-size: 32px;
+  height: 72px;
+  justify-content: center;
+  width: 72px;
+}
+
+.keyboard-btn.high {
+  background-color: var(--button-high);
+}
+
+.keyboard-btn.medium {
+  background-color: var(--button-medium);
+}
+
+.keyboard-btn.low {
+  background-color: var(--button-low);
+}
+
+.keyboard-btn.low.zero {
+  width: 160px;
+}
+
+.keyboard-btn svg .clear-last--btn {
+  fill: var(--textColor);
+}
