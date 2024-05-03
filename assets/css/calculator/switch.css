@@ -1,0 +1,26 @@
+.switch-label {
+  background-color: var(--button-low);
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  height: 32px;
+  justify-content: space-between;
+  padding: 4px 5px;
+  position: relative;
+  width: 72px;
+}
+
+.switch-label .switch-button {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  top: 4px;
+  left: 4px;
+  background: var(--button-medium);
+  transition: transform 0.3s;
+}
+
+.switch-label .switch-input {
+  display: none;
+}
