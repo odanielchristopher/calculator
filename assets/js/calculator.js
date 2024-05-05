@@ -2,30 +2,30 @@ const buttons = document.querySelectorAll('.keyboard-btn');
 const inputResult = document.querySelector('.result');
 const lastExpression = document.querySelector('.calc');
 
-function innerResult(text) {
+function updateResult(text) {
   inputResult.value = text;
 }
 
-function innerHistory(text) {
+function updateHistory(text) {
   lastExpression.innerHTML = text;
 }
 
-function toExpression(text) {
+function convertExpression(text) {
   return text.replace(/÷/g, "/").replace(/x/g, "*").replace(/,/g, ".");
 }
 
-function calculateResult(expression) {
-  const splitedExpression = expression.split('');
+function calculateExpression(expression) {
+  const splitedExpression = convertExpression(expression).split('');
   const operands = [];
   const operators = [];
   let operand = '';
 
-  function isOperator(character) {
-    return (character === '+' || character === '-' || character === '*' || character === '/');
+  function isOperator(char) {
+    return (char === '+' || char === '-' || char === '*' || char === '/');
   }
 
-  function precedence(character) {
-    switch (character) {
+  function precedence(operator) {
+    switch (operator) {
       case '+':
       case '-': return 1;
 
@@ -60,11 +60,11 @@ function calculateResult(expression) {
   }
 
   for (let i = 0; i < splitedExpression.length; i++) {
-    let character = splitedExpression[i];
+    let char = splitedExpression[i];
 
-    while ((!isOperator(character)) && i < splitedExpression.length) {
-      operand += character;
-      character = splitedExpression[++i];
+    while ((!isOperator(char)) && i < splitedExpression.length) {
+      operand += char;
+      char = splitedExpression[++i];
     }
 
     if (operand.length > 0) {
@@ -73,12 +73,12 @@ function calculateResult(expression) {
       operand = '';
     }
 
-    if (isOperator(character)) {
-      while (!isEmpty(operators) && precedence(character) <= precedence(operators[operators.length - 1])) {
+    if (isOperator(char)) {
+      while (!isEmpty(operators) && precedence(char) <= precedence(operators[operators.length - 1])) {
         operands.push(calculate());
       }
 
-      operators.push(character);
+      operators.push(char);
     }
   }
 
@@ -86,42 +86,39 @@ function calculateResult(expression) {
     operands.push(calculate());
   }
 
-  return operands[0];
+  return operands[0].toString().replace(/[.]/g, ',');
 }
 
-function handleCalculate(event) {
+function handleButtonClick(event) {
   const button = event.target;
   const buttonText = button.innerHTML;
   const currentTextOnDisplay = inputResult.value;
 
   if (isClearButton()) {
-    innerResult('');
+    updateResult('');
     return;
   }
   
   if (isDeleteLastButton()) {
-    innerResult(currentTextOnDisplay.slice(0, -1));
+    updateResult(currentTextOnDisplay.slice(0, -1));
     return;
   }
   
   if (isGetResultButton()) {
-    innerHistory(currentTextOnDisplay);
-
-    const validExpression = toExpression(currentTextOnDisplay);
-    const result = calculateResult(validExpression).toString().replace(/[.]/g, ',');
-
-    innerResult(result);
+    updateHistory(currentTextOnDisplay);
+    const result = calculateExpression(currentTextOnDisplay);
+    updateResult(result);
     return;
   }
   
-  innerResult(currentTextOnDisplay + buttonText);
+  updateResult(currentTextOnDisplay + buttonText);
 
   function isClearButton() {
     return button.value === 'clear';
   }
 
   function isDeleteLastButton() {
-    return button.value === 'delete-last' || button.classList[0] === 'button-svg'
+    return button.value === 'delete-last' || button.classList[0] === 'button-svg' || button.classList[0] === 'button-path';
   }
 
   function isGetResultButton() {
@@ -130,5 +127,5 @@ function handleCalculate(event) {
 }
 
 buttons.forEach((button) => {
-  button.addEventListener('click', handleCalculate);
+  button.addEventListener('click', handleButtonClick);
 });

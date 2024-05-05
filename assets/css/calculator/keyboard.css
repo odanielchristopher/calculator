@@ -36,6 +36,6 @@
   width: 160px;
 }
 
-.keyboard-btn .button-svg .clear-last--btn {
+.keyboard-btn .button-svg .button-path {
   fill: var(--textColor);
 }
