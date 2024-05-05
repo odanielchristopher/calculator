@@ -32,10 +32,10 @@
   background-color: var(--button-low);
 }
 
-.keyboard-btn.low.zero {
+.keyboard-btn.low.zero, .keyboard-btn.medium.clear {
   width: 160px;
 }
 
-.keyboard-btn svg .clear-last--btn {
+.keyboard-btn .button-svg .clear-last--btn {
   fill: var(--textColor);
 }

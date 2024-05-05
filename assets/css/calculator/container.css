@@ -1,7 +1,7 @@
 .calculator {
   align-items: center;
   background-color: var(--backgroundDisplay);
-  border-radius: 16px;
+  border-radius: 24px;
   display: flex;
   flex-direction: column;
   padding: 20px;
