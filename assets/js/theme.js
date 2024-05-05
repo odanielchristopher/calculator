@@ -21,7 +21,6 @@ const darkTheme = {
 }
 
 function handleTheme(theme) {
-  console.log();
   for (let prop in theme) {
     handleProp(prop, theme[prop]);
   }
